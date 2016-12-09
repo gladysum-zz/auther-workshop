@@ -14,10 +14,12 @@ router.post('/', function (req, res, next) {
 		}
 	})
 	.then(function (user) {
-		if (!user) {res.send(401);}
-		else {res.send(200);}
+		if (!user) {res.sendStatus(401);}
+		else {
+			req.session.userId = user.id;
+			console.log("This is the session: ", req.session);
+			res.redirect(200, '../../');
+		}
 	})
 	.catch(next);
-
-
 })
